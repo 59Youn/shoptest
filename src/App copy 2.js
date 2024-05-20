@@ -19,6 +19,8 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   const [products, setProducts] = useState([]);
 
+  // useCallback(()=>{}, [])
+  // 불필요한 렌더링을 배제하고, 함수를 재사용하기 위해 사용 (성능 향상)
   const getProductList = useCallback(async (category) => {
     let url = `http://localhost:5000/products`;
     if (category) {
@@ -28,6 +30,23 @@ function App() {
     let data = await response.json();
     setProducts(data);
   }, []);
+
+  // const getProductList = async () => {
+  //   // api를 호출하는 함수
+  //   let url = `http://localhost:5000/products?category=new`;
+  //   let response = await fetch(url);
+  //   let data = await response.json();
+  //   setProdects(data);
+  // };
+
+  // useEffect(() => {})
+  // useEffect(() => {}, [])
+  // useEffect(() => {}, [변수, 변수2])
+  // useEffect(() => { return ()=>{ 컨포넌트가 제거될 때 1차 실행되는 곳 } }, [])
+
+  // useEffect(() => {
+  //   getProductList();
+  // }, []);
 
   return (
     <div className="App">
